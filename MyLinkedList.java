@@ -1,4 +1,4 @@
-public class MyLinkedList{
+public class MyLinkedList<E>{
  private int length = 0;
  private Node start,end;
 
@@ -75,7 +75,7 @@ public class MyLinkedList{
  //in O(1) runtime, move the elements from other onto the end of this
  //The size of other is reduced to 0
  //The size of this is now the combined sizes of both original lists
- public void extend(MyLinkedList other){
+ public void extend(MyLinkedList<E> other){
    if (length == 0) { // if this is empty, make this other
      start = other.start;
      end = other.end;
@@ -111,13 +111,13 @@ public class MyLinkedList{
  }
 
  public static void main(String[] args) {
-   MyLinkedList test = new MyLinkedList();
+   MyLinkedList<Integer> test = new MyLinkedList<Integer>();
    System.out.println(test.toString());
    test.add(0);
    test.add(2);
    test.add(5);
    System.out.println(test.toString());
-   MyLinkedList test2 = new MyLinkedList();
+   MyLinkedList<Integer> test2 = new MyLinkedList<Integer>();
    test2.add(1);
    test2.add(3);
    test2.add(4);
