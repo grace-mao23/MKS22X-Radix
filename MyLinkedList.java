@@ -6,13 +6,20 @@ public class MyLinkedList<E>{
    //empty constructor
  }
 
+ // clears the list to an empty state
+ public void clear() {
+   length = 0;
+   start = null;
+   end = null;
+ }
+
  // returns number of elements in the list
  public int size() {
    return length;
  }
 
  // returns true, adds value to the end of the list
- public boolean add(Integer value) {
+ public boolean add(E value) {
    if (end == null) { // if list is totally empty
      end = new Node(value,end,null);
      start = end;
@@ -39,7 +46,7 @@ public class MyLinkedList<E>{
 
  // returns data of node at indexOf
  // throws exception if out of range
- public Integer get(int index) {
+ public E get(int index) {
    if (index < 0 || index >= size()) {
      throw new IndexOutOfBoundsException();
    }
@@ -48,11 +55,11 @@ public class MyLinkedList<E>{
 
  // returns old element, removes element at index
  // throws exception if out of range
- public Integer remove(int index) {
+ public E remove(int index) {
    if (index < 0 || index >= size()) {
      throw new IndexOutOfBoundsException();
    }
-   Integer result = get(index);
+   E result = get(index);
    if (index == 0) {
      start = getNode(index+1);
      return result;
@@ -104,11 +111,7 @@ public class MyLinkedList<E>{
    return result + "]";
  }
 
- public void clear() {
-   length = 0;
-   start = null;
-   end = null;
- }
+
 
  public static void main(String[] args) {
    MyLinkedList<Integer> test = new MyLinkedList<Integer>();
@@ -127,39 +130,39 @@ public class MyLinkedList<E>{
    System.out.println(test.toString());
  }
 
-}
+ class Node{
+  private E data;
+  private Node next,prev;
 
-class Node{
- private Integer data;
- private Node next,prev;
+  public Node(E d, Node p, Node n) {
+    data = d;
+    next = n;
+    prev = p;
+  }
 
- public Node(int d, Node p, Node n) {
-   data = d;
-   next = n;
-   prev = p;
+  public E getData() {
+    return data;
+  }
+
+  public Node next() {
+    return next;
+  }
+
+  public Node prev() {
+    return prev;
+  }
+
+  public void setData(E d) {
+    data = d;
+  }
+
+  public void setNext(Node n) {
+    next = n;
+  }
+
+  public void setPrev(Node n) {
+    prev = n;
+  }
  }
 
- public int getData() {
-   return data;
- }
-
- public Node next() {
-   return next;
- }
-
- public Node prev() {
-   return prev;
- }
-
- public void setData(int d) {
-   data = d;
- }
-
- public void setNext(Node n) {
-   next = n;
- }
-
- public void setPrev(Node n) {
-   prev = n;
- }
 }
