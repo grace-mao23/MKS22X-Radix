@@ -12,6 +12,7 @@ public class Radix {
       for (int x = 0; x < data.length; x++) {
         int num = current.remove(0);
         int index = (int)(num / (Math.pow(10,i-1))) % 10;
+        buckets[index].add(num);
       }
     }
   }
