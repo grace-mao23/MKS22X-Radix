@@ -11,26 +11,22 @@ public class Radix {
       buckets[i] = new MyLinkedList<Integer>();
     }
     for (int i = 1; i <= passes; i++) {
-      MyLinkedList<Integer> current = new MyLinkedList<Integer>();
-      for (int d : data) {
-        current.add(d);
-      }
-      System.out.println(current.toString());
+    //  System.out.println(current.toString());
       for (int x = 0; x < data.length; x++) {
       //  System.out.println(x);
-        int num = current.remove(0);
+        int num = data[x];
         int index = (int)(num / (Math.pow(10,i-1))) % 10;
         buckets[index+9].add(num);
-        System.out.println(Arrays.toString(buckets));
+      //  System.out.println(Arrays.toString(buckets));
       }
       MyLinkedList<Integer> temp = buckets[0];
       for (int y = 1; y < 20; y++) {
-        System.out.println("1: "+temp.toString());
-        System.out.println(buckets[y].toString());
+        //System.out.println("1: "+temp.toString());
+        //System.out.println(buckets[y].toString());
         temp.extend(buckets[y]);
-        System.out.println("2: "+temp.toString());
+        //System.out.println("2: "+temp.toString());
       }
-      System.out.println(temp.toString());
+      //System.out.println(temp.toString());
       for (int z = 0; z < data.length; z++) {
         data[z] = temp.remove(0);
       }
@@ -61,12 +57,44 @@ public class Radix {
   }
 
   public static void main(String[] args) {
-    int[] test = new int[] { 62, 21, 32, 13, 41, 24, 25 };
+    /*int[] test = new int[] { 62, 21, 32, 13, 41, 24, 25 };
     Radix.radixsort(test);
     System.out.println(Arrays.toString(test));
     int[] test2 = new int[] { 12, -13, 21,-4, 43, -32, 0, -1 };
     Radix.radixsort(test2);
-    System.out.println(Arrays.toString(test2));
-  }
+    System.out.println(Arrays.toString(test2)); */
+      System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
+      int[]MAX_LIST = {1000000000,500,10};
+      for(int MAX : MAX_LIST){
+        for(int size = 31250; size < 2000001; size*=2){
+          long qtime=0;
+          long btime=0;
+          //average of 5 sorts.
+          for(int trial = 0 ; trial <=5; trial++){
+            int []data1 = new int[size];
+            int []data2 = new int[size];
+            for(int i = 0; i < data1.length; i++){
+              data1[i] = (int)(Math.random()*MAX);
+              data2[i] = data1[i];
+            }
+            long t1,t2;
+            t1 = System.currentTimeMillis();
+            Radix.radixsort(data2);
+            t2 = System.currentTimeMillis();
+            qtime += t2 - t1;
+            t1 = System.currentTimeMillis();
+            Arrays.sort(data1);
+            t2 = System.currentTimeMillis();
+            btime+= t2 - t1;
+            if(!Arrays.equals(data1,data2)){
+              System.out.println("FAIL TO SORT!");
+              System.exit(0);
+            }
+          }
+          System.out.println(size +"\t\t"+MAX+"\t"+1.0*qtime/btime);
+        }
+        System.out.println();
+      }
+    }
 
 }
