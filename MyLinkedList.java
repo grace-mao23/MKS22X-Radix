@@ -89,6 +89,7 @@ public class MyLinkedList<E>{
    } else if (other.size() != 0) { // else if other is not empty, do this
      end.setNext(other.start);
      other.start.setPrev(end);
+     end = other.end;
    } // if other is empty, nothing happens
    other.start = null;
    other.end = null;
