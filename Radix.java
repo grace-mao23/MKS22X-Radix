@@ -10,32 +10,29 @@ public class Radix {
     for (int i = 0; i < buckets.length; i++) {
       buckets[i] = new MyLinkedList<Integer>();
     }
-  //  System.out.println(Arrays.toString(buckets));
-    MyLinkedList<Integer> current = new MyLinkedList<Integer>();
-    for (int i : data) {
-      current.add(i);
-    }
-  //  System.out.println(current.toString());
     for (int i = 1; i <= passes; i++) {
-    //  System.out.println(i);
+      MyLinkedList<Integer> current = new MyLinkedList<Integer>();
+      for (int d : data) {
+        current.add(d);
+      }
+    //  System.out.println(current.toString());
       for (int x = 0; x < data.length; x++) {
+      //  System.out.println(x);
         int num = current.remove(0);
         int index = (int)(num / (Math.pow(10,i-1))) % 10;
-      //  System.out.println(buckets[index].toString());
         buckets[index].add(num);
       }
-    //  System.out.println(Arrays.toString(buckets));
-      current = buckets[0];
+      MyLinkedList<Integer> temp = buckets[0];
       for (int y = 1; y < 10; y++) {
-      //  System.out.println("C1: "+current.toString());
-        //System.out.println("B: "+buckets[y].toString());
-        current.extend(buckets[y]);
-        System.out.println("C: "+current.toString());
-        //System.out.println();
+        temp.extend(buckets[y]);
+      }
+      for (int z = 0; z < data.length; z++) {
+        data[z] = temp.remove(0);
       }
       clearB(buckets);
+    //  System.out.println(Arrays.toString(data));
     }
-    System.out.println(current.toString());
+  //  System.out.println(Arrays.toString(data));
   }
 
   // returns number of passes necessary
@@ -59,8 +56,9 @@ public class Radix {
   }
 
   public static void main(String[] args) {
-    int[] test = new int[] { 6, 2, 3, 1, 4, 5, 2 };
+    int[] test = new int[] { 62, 21, 32, 13, 41, 24, 25 };
     Radix.radixsort(test);
+    System.out.println(Arrays.toString(test));
   }
 
 }
