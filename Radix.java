@@ -6,7 +6,7 @@ public class Radix {
 //  @SuppressWarnings("unchecked")
   public static void radixsort(int[] data){
     int passes = maxL(data);
-    MyLinkedList[] buckets = new MyLinkedList[10];
+    MyLinkedList[] buckets = new MyLinkedList[20];
     for (int i = 0; i < buckets.length; i++) {
       buckets[i] = new MyLinkedList<Integer>();
     }
@@ -15,17 +15,22 @@ public class Radix {
       for (int d : data) {
         current.add(d);
       }
-    //  System.out.println(current.toString());
+      System.out.println(current.toString());
       for (int x = 0; x < data.length; x++) {
       //  System.out.println(x);
         int num = current.remove(0);
         int index = (int)(num / (Math.pow(10,i-1))) % 10;
-        buckets[index].add(num);
+        buckets[index+9].add(num);
+        System.out.println(Arrays.toString(buckets));
       }
       MyLinkedList<Integer> temp = buckets[0];
-      for (int y = 1; y < 10; y++) {
+      for (int y = 1; y < 20; y++) {
+        System.out.println("1: "+temp.toString());
+        System.out.println(buckets[y].toString());
         temp.extend(buckets[y]);
+        System.out.println("2: "+temp.toString());
       }
+      System.out.println(temp.toString());
       for (int z = 0; z < data.length; z++) {
         data[z] = temp.remove(0);
       }
@@ -59,6 +64,9 @@ public class Radix {
     int[] test = new int[] { 62, 21, 32, 13, 41, 24, 25 };
     Radix.radixsort(test);
     System.out.println(Arrays.toString(test));
+    int[] test2 = new int[] { 12, -13, 21,-4, 43, -32, 0, -1 };
+    Radix.radixsort(test2);
+    System.out.println(Arrays.toString(test2));
   }
 
 }
